@@ -28,7 +28,7 @@ const client = require('testrail-api-client');
 ```
 #### Using Custom Options:
 ```js
-const client = require('testrail-api-client').default;
+const client_options = require('testrail-api-client').default;
 
 const options = {
     domain: "example.testrail.com",
@@ -37,7 +37,7 @@ const options = {
     projectId: 1
 };
 
-const client_options = new client(options);
+const client = new client_options(options);
 ```
 
 
