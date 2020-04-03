@@ -1,5 +1,5 @@
 # testrail-api-client
-TypeScript (JavaScript) client for TestRail API v2
+TypeScript and JavaScript binding for TestRail API v2
 
 ![Node.js Package](https://github.com/VoloBro/testrail-api-client/workflows/Node.js%20Package/badge.svg)
 [![npm version](https://img.shields.io/npm/v/testrail-api-client.svg?style=flat-square)](https://www.npmjs.com/package/testrail-api-client)
