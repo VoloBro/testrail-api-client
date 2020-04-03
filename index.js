@@ -9,3 +9,4 @@ const Client = require('./dist/testrail').TestRailClient;
 const outClient = new Client(options);
 
 module.exports = outClient;
+module.exports.default = require('./dist/testrail').TestRailClient;
