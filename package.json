@@ -5,6 +5,18 @@
   "main": "index.js",
   "author": "Volodymyr Prysiazhniuk",
   "license": "MIT",
+  "keywords": [
+    "testrail",
+    "binding",
+    "client"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/VoloBro/testrail-api-client.git"
+  },
+  "bugs": {
+    "url": "https://github.com/VoloBro/testrail-api-client/issues"
+  },
   "dependencies": {
     "axios": "^0.19.2"
   },
