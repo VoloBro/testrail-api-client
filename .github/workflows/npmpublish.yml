@@ -43,6 +43,7 @@ jobs:
         with:
           node-version: 12
           registry-url: https://npm.pkg.github.com/
+          scope: "@VoloBro"
       - run: yarn install
       - run: yarn build
       - run: npm publish
