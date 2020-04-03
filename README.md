@@ -66,8 +66,9 @@ client.closeRun(123)
   .catch(error => console.error(error));
 ```
 
-### closeRun
+### getCases
 ```js
+const suiteId = 1;
 client.getCases(suiteId)
   .then(function (cases) {
       console.log(`Number of cases in suiteid=${suiteId}: ${cases.length}`);
