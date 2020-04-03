@@ -21,10 +21,22 @@ $ yarn add testrail-api-client
 ## Example
 
 ### note: CommonJS usage
+#### Using Environment Variables:
 ```js
 const client = require('testrail-api-client');
-// client will be initialized using environment variables
 ```
+#### Using Custom Options:
+```js
+const client = require('testrail-api-client').default;
+
+const options = {
+    domain: "example.testrail.com",
+    username: "example@example.com",
+    password: "ABC",
+    projectId: 1
+};
+```
+
 
 ### addRun
 ```js
