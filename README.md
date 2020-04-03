@@ -22,7 +22,7 @@ $ yarn add testrail-api-client
 ## Example
 
 ### note: CommonJS usage
-#### Using Environment Variables:
+#### Using [Environment Variables] (#Environment-Variables):
 ```js
 const client = require('testrail-api-client');
 ```
