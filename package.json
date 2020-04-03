@@ -1,6 +1,6 @@
 {
   "name": "testrail-api-client",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "JavaScript client for TestRail API",
   "main": "index.js",
   "author": "Volodymyr Prysiazhniuk",
