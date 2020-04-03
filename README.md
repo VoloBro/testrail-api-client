@@ -35,6 +35,8 @@ const options = {
     password: "ABC",
     projectId: 1
 };
+
+const client_options = new client(options);
 ```
 
 
