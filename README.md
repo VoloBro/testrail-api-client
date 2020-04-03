@@ -43,7 +43,11 @@ const client_options = new client(options);
 
 ### addRun
 ```js
-client.addRun("Example Run", "Example Description", 123, [1,2,3])
+const runName = "Example Run Name";
+const runDescription = "Example Run Description";
+const testSuiteId = 1;
+const caseIds = [1,2,3];
+client.addRun(runName, runDescription, testSuiteId, caseIds)
   .then(function (runId) {
       console.log(`Created run with id: ${runId}`)
   })
@@ -52,7 +56,8 @@ client.addRun("Example Run", "Example Description", 123, [1,2,3])
 
 ### getCasesFromRun
 ```js
-client.getCasesFromRun(123)
+const runId = 123;
+client.getCasesFromRun(runId)
   .then(function (cases) {
       console.log(`Number of cases from run #${runId}: ${cases.length}`)
   })
@@ -61,7 +66,8 @@ client.getCasesFromRun(123)
 
 ### closeRun
 ```js
-client.closeRun(123)
+const runId = 123;
+client.closeRun(runId)
   .then(console.log(`Closed run with id: ${runId}`))
   .catch(error => console.error(error));
 ```
