@@ -3,6 +3,9 @@
   "version": "1.0.10",
   "description": "JavaScript client for TestRail API",
   "main": "index.js",
+  "files": [
+    "dist"
+  ],
   "author": "Volodymyr Prysiazhniuk",
   "license": "MIT",
   "keywords": [
