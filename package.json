@@ -13,11 +13,6 @@
     "binding",
     "client"
   ],
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn version --patch --no-commit-hooks"
-    }
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/VoloBro/testrail-api-client.git"
@@ -33,13 +28,13 @@
     "@types/mocha": "^2.2.36",
     "@types/node": "^6.0.58",
     "chai": "^3.5.0",
-    "husky": "^4.2.3",
     "rimraf": "^2.5.4",
     "typescript": "^2.1.4"
   },
   "scripts": {
     "tsc": "tsc",
     "clean": "rimraf dist",
-    "build": "npm run clean && npm run tsc"
+    "build": "yarn run clean && yarn run tsc",
+    "precommit": "yarn version --patch"
   }
 }
