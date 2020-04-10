@@ -1,15 +1,16 @@
 const axios = require("axios");
 
-import { TestRailOptions } from "./testrail.interface";
+import { TestRailOptions, TestRailResult } from "./testrail.interface";
 
 export class TestRailClient {
-    private base: String;
+    public uri: String = "/index.php?/api/v2";
+    public base: String;
 
     constructor(private options: TestRailOptions) {
-        this.base = `https://${options.domain}/index.php?/api/v2`;
+        this.base = `https://${options.domain}${this.uri}`;
     }
 
-    public addRun(name: string, description: string, suiteId?: number, cases?: Array<number>) {
+    public addRun(name: string, description: string, projectId: string, suiteId?: number, cases?: Array<number>) {
         return new Promise((resolve, reject) => {
             const body = {
                 name,
@@ -24,20 +25,20 @@ export class TestRailClient {
 
             axios({
                 method: 'post',
-                url: `${this.base}/add_run/${this.options.projectId}`,
+                url: `${this.base}/add_run/${projectId}`,
                 headers: { 'Content-Type': 'application/json' },
                 auth: {
                     username: this.options.username,
                     password: this.options.password,
                 },
                 data: JSON.stringify(body),
-            }).then(response => {
-                resolve(response.data.id);
-            }).catch(error => reject(error));
+            })
+                .then(function (response) { resolve(response.data.id) })
+                .catch(function (error) { reject(error) });
         });
     }
 
-    public getCasesFromRun(runId: number) {
+    public getTests(runId: number) {
         return new Promise((resolve, reject) => {
             axios({
                 method: 'GET',
@@ -47,30 +48,28 @@ export class TestRailClient {
                     username: this.options.username,
                     password: this.options.password,
                 },
-            }).then(response => {
-                resolve(response.data);
-            }).catch(function (error) {
-                reject(error);
-            });
+            })
+                .then(function (response) { resolve(response.data) })
+                .catch(function (error) { reject(error) });
         });
     }
 
-    public getCases(suiteId?: string) {
+    public getCases(projectId: string, suiteId?: string) {
         return new Promise((resolve, reject) => {
             const params = ""
-                + (suiteId ? `&suite_id=${suiteId}` : "");
+                + (suiteId ? `/&suite_id=${suiteId}` : "");
 
             axios({
                 method: 'get',
-                url: `${this.base}/get_cases/${this.options.projectId}/${params}`,
+                url: `${this.base}/get_cases/${projectId}${params}`,
                 headers: { 'Content-Type': 'application/json' },
                 auth: {
                     username: this.options.username,
                     password: this.options.password,
                 }
-            }).then(function (response) {
-                resolve(response.data);
-            }).catch(error => reject(error));
+            })
+                .then(function (response) { resolve(response.data) })
+                .catch(function (error) { reject(error) });
         });
     };
 
@@ -84,8 +83,29 @@ export class TestRailClient {
                     username: this.options.username,
                     password: this.options.password,
                 },
-            }).then(resolve())
-                .catch(error => reject(error));
+            })
+                .then(function (res) { resolve() })
+                .catch(function (error) { reject(error) });
         });
     }
-}
+
+    public addResultsForCases(runId, results: TestRailResult[]) {
+        return new Promise((resolve, reject) => {
+            axios({
+                method: 'post',
+                url: `${this.base}/add_results_for_cases/${runId}`,
+                headers: { 'Content-Type': 'application/json' },
+                auth: {
+                    username: this.options.username,
+                    password: this.options.password,
+                },
+                data: JSON.stringify({ "results": results }),
+            })
+                .then(function (response) {
+                    resolve();
+                })
+                .catch(function (error) { reject(error) });
+        })
+
+    }
+};

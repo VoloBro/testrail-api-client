@@ -3,6 +3,7 @@
 TypeScript and JavaScript binding for TestRail API v2
 
 ![Node.js Package](https://github.com/VoloBro/testrail-api-client/workflows/Node.js%20Package/badge.svg)
+[![Coverage Status](https://coveralls.io/repos/github/VoloBro/testrail-api-client/badge.svg?branch=master)](https://coveralls.io/github/VoloBro/testrail-api-client?branch=master)
 [![npm version](https://img.shields.io/npm/v/testrail-api-client.svg?style=flat-square)](https://www.npmjs.com/package/testrail-api-client)
 [![npm downloads](https://img.shields.io/npm/dm/testrail-api-client.svg?style=flat-square)](http://npm-stat.com/charts.html?package=testrail-api-client)
 
@@ -39,7 +40,6 @@ const options = {
   domain: "example.testrail.com",
   username: "example@example.com",
   password: "ABC",
-  projectId: 1,
 };
 
 const client = new client_options(options);
@@ -50,10 +50,11 @@ const client = new client_options(options);
 ```js
 const runName = "Example Run Name";
 const runDescription = "Example Run Description";
-const testSuiteId = 123;
-const caseIds = [1, 2, 3];
+const projectId = 1;
+const testSuiteId = 123; // optional
+const caseIds = [1, 2, 3]; // optional
 client
-  .addRun(runName, runDescription, testSuiteId, caseIds)
+  .addRun(runName, runDescription, projectId, testSuiteId, caseIds)
   .then(function (runId) {
     console.log(`Created run with id: ${runId}`);
   })
@@ -85,9 +86,10 @@ client
 ### getCases
 
 ```js
-const suiteId = 1;
+const projectId = 1;
+const suiteId = 123; // optional
 client
-  .getCases(suiteId)
+  .getCases(projectId, suiteId)
   .then(function (cases) {
     console.log(`Number of cases in suiteid=${suiteId}: ${cases.length}`);
   })
