@@ -61,12 +61,12 @@ client
   .catch((error) => console.error(error));
 ```
 
-### getCasesFromRun
+### getTests
 
 ```js
 const runId = 123;
 client
-  .getCasesFromRun(runId)
+  .getTests(runId)
   .then(function (cases) {
     console.log(`Number of cases from run #${runId}: ${cases.length}`);
   })
@@ -104,5 +104,3 @@ client
 | TESTRAIL_USERNAME  | This is a required variable to authenticate HTTP communication.<br /><br />_Required_<br />Example: `example@example.com`                                                                             |
 | TESTRAIL_APIKEY    | This is a required variable to authenticate HTTP communication. Can be obtained in TestRail settings, see [http://docs.gurock.com/testrail-api2/accessing].<br /><br />_Required_<br />Example: `ABC` |
 | TESTRAIL_PROJECTID | This is a required variable to point client to the right project.<br /><br />_Required_<br />Example: `1`                                                                                             |
-
-TEST

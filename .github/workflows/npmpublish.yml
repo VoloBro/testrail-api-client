@@ -19,8 +19,9 @@ jobs:
         with:
           node-version: 12
       - run: yarn install
-      - run: yarn build
-      - run: yarn test
+      - run: yarn run build
+      - run: yarn run test
+      - run: yarn run coverageci
 
   publish-npm:
     needs: build

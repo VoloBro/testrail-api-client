@@ -1,6 +1,6 @@
 {
   "name": "testrail-api-client",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "JavaScript client for TestRail API",
   "main": "index.js",
   "files": [
@@ -42,6 +42,6 @@
     "precommit": "yarn version --patch",
     "test": "./node_modules/.bin/_mocha",
     "coverage": "./node_modules/.bin/istanbul cover --report html node_modules/.bin/_mocha --check-leaks",
-    "coverageci": "./node_modules/istanbul/lib/cli.js cover ./node_modules/.bin/_mocha"
+    "coverageci": "./node_modules/istanbul/lib/cli.js cover ./node_modules/.bin/_mocha && cat ./coverage/lcov.info | ./node_modules/.bin/coveralls"
   }
 }
