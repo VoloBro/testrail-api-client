@@ -2,10 +2,11 @@
 
 TypeScript and JavaScript binding for TestRail API v2
 
+[![npm version](https://img.shields.io/npm/v/testrail-api-client.svg?style=flat-square)](https://www.npmjs.com/package/testrail-api-client)
 ![Node.js Package](https://github.com/VoloBro/testrail-api-client/workflows/Node.js%20Package/badge.svg)
 [![Coverage Status](https://coveralls.io/repos/github/VoloBro/testrail-api-client/badge.svg?branch=master)](https://coveralls.io/github/VoloBro/testrail-api-client?branch=master)
-[![npm version](https://img.shields.io/npm/v/testrail-api-client.svg?style=flat-square)](https://www.npmjs.com/package/testrail-api-client)
 [![npm downloads](https://img.shields.io/npm/dm/testrail-api-client.svg?style=flat-square)](http://npm-stat.com/charts.html?package=testrail-api-client)
+
 
 ## Installing
 
