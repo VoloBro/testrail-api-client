@@ -82,4 +82,28 @@ describe('runs api', function () {
                 done();
             });
     });
+
+    it('updateRunDescription(runId, description) pass', function (done) {
+        nock(`https://${options.domain}`)
+            .post(testrail.uri + '/update_run/123')
+            .reply(200, [
+                { 'status': 'ok' }
+            ]);
+        testrail.updateRunDescription(123, "World")
+            .then(() => {
+                done();
+            })
+    });
+
+    it('updateRunDescription(runId, description) fail', function (done) {
+        nock(`https://${options.domain}`)
+            .post(testrail.uri + '/update_run/321')
+            .reply(401, "nok");
+        testrail.updateRunDescription(321, "World")
+            .catch((err) => {
+                expect(err.response.status).to.equal(401);
+                expect(err.response.data).to.equal('nok');
+                done();
+            });
+    });
 });

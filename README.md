@@ -7,7 +7,6 @@ TypeScript and JavaScript binding for TestRail API v2
 [![Coverage Status](https://coveralls.io/repos/github/VoloBro/testrail-api-client/badge.svg?branch=master)](https://coveralls.io/github/VoloBro/testrail-api-client?branch=master)
 [![npm downloads](https://img.shields.io/npm/dm/testrail-api-client.svg?style=flat-square)](http://npm-stat.com/charts.html?package=testrail-api-client)
 
-
 ## Installing
 
 Using npm:
@@ -95,6 +94,36 @@ client
     console.log(`Number of cases in suiteid=${suiteId}: ${cases.length}`);
   })
   .catch((error) => console.error(error));
+```
+
+### addResultsForCases
+
+```js
+const runId = 123;
+const reportTests = [{ case_id: 12345, status_id: 1, comment: "Test comment" }];
+client
+  .addResultsForCases(runId, reportTests)
+  .then(() => {
+    console.log("Done");
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+```
+
+### updateRunDescription
+
+```js
+const runId = 123;
+const description = "Run Description";
+client
+  .updateRunDescription(runId, description)
+  .then(() => {
+    console.log("Done");
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 ```
 
 ## Environment variables

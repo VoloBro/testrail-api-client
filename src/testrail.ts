@@ -108,4 +108,24 @@ export class TestRailClient {
         })
 
     }
+
+    public updateRunDescription(runId, description) {
+        return new Promise((resolve, reject) => {
+            axios({
+                method: 'post',
+                url: `${this.base}/update_run/${runId}`,
+                headers: { 'Content-Type': 'application/json' },
+                auth: {
+                    username: this.options.username,
+                    password: this.options.password,
+                },
+                data: JSON.stringify({ "description": description }),
+            })
+                .then(function (response) {
+                    resolve();
+                })
+                .catch(function (error) { reject(error) });
+        })
+
+    }
 };
