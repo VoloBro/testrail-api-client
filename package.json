@@ -21,7 +21,7 @@
     "url": "https://github.com/VoloBro/testrail-api-client/issues"
   },
   "dependencies": {
-    "axios": "^0.19.2"
+    "axios": "^0.21.1"
   },
   "devDependencies": {
     "@types/chai": "^3.4.34",
