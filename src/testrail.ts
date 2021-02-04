@@ -7,7 +7,7 @@ export class TestRailClient {
     public base: String;
 
     constructor(private options: TestRailOptions) {
-        this.base = `https://${options.domain}${this.uri}`;
+        this.base = `http${options.secure ? 's' : ''}://${options.domain}${this.uri}`;
     }
 
     public addRun(name: string, description: string, projectId: string, suiteId?: number, cases?: Array<number>) {
@@ -15,7 +15,7 @@ export class TestRailClient {
             const body = {
                 name,
                 description,
-                include_all: false,
+                include_all: cases && cases.length ? false : true,
                 case_ids: cases,
             }
 
