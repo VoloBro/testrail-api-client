@@ -1,4 +1,5 @@
 export interface TestRailOptions {
+  secure: boolean;
   domain: string;
   username: string;
   password: string;
