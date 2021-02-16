@@ -3,15 +3,16 @@ const axios = require("axios");
 import { TestRailOptions, TestRailResult } from "./testrail.interface";
 
 export class TestRailClient {
-    public uri: String = "/index.php?/api/v2";
-    public base: String;
+    private indexUri = "/index.php?";
+    public uri: String = `${this.indexUri}/api/v2`;
     private commonHeaders = { 'Content-Type': 'application/json', 'x-api-ident': 'beta' };
 
     constructor(private options: TestRailOptions) {
-        this.base = `https://${options.domain}${this.uri}`;
+        axios.defaults.baseURL = `https://${options.domain}`;
     }
 
     private handlePaginatedGetAxios = (requestUrl, itemName, items, resolve, reject) => {
+        const __this = this;
         axios({
             method: 'get',
             url: requestUrl,
@@ -22,11 +23,9 @@ export class TestRailClient {
             }
         })
             .then(function (response) {
-                console.log(JSON.stringify(response.data));
-                
                 const retrievedItems = items.concat(response.data[itemName]);
                 if (response.data._links.next !== null) {
-                    this.handlePaginatedGetAxios(`${this.base}${response.data._links.next}`, itemName, retrievedItems, resolve, reject)
+                    __this.handlePaginatedGetAxios(`${__this.indexUri}/${response.data._links.next}`, itemName, retrievedItems, resolve, reject)
                 }
                 else {
                     resolve(retrievedItems)
@@ -50,7 +49,7 @@ export class TestRailClient {
 
             axios({
                 method: 'post',
-                url: `${this.base}/add_run/${projectId}`,
+                url: `${this.uri}/add_run/${projectId}`,
                 headers: this.commonHeaders,
                 auth: {
                     username: this.options.username,
@@ -65,7 +64,7 @@ export class TestRailClient {
 
     public getTests(runId: number) {
         return new Promise((resolve, reject) => {
-            this.handlePaginatedGetAxios(`${this.base}/get_tests/${runId}`, 'tests', [], resolve, reject);
+            this.handlePaginatedGetAxios(`${this.uri}/get_tests/${runId}`, 'tests', [], resolve, reject);
         });
     }
 
@@ -74,7 +73,7 @@ export class TestRailClient {
             const params = ""
                 + (suiteId ? `/&suite_id=${suiteId}` : "");
 
-            this.handlePaginatedGetAxios(`${this.base}/get_cases/${projectId}${params}`, 'cases', [], resolve, reject);
+            this.handlePaginatedGetAxios(`${this.uri}/get_cases/${projectId}${params}`, 'cases', [], resolve, reject);
         });
     };
 
@@ -82,7 +81,7 @@ export class TestRailClient {
         return new Promise((resolve, reject) => {
             axios({
                 method: 'post',
-                url: `${this.base}/close_run/${runId}`,
+                url: `${this.uri}/close_run/${runId}`,
                 headers: this.commonHeaders,
                 auth: {
                     username: this.options.username,
@@ -98,7 +97,7 @@ export class TestRailClient {
         return new Promise((resolve, reject) => {
             axios({
                 method: 'post',
-                url: `${this.base}/add_results_for_cases/${runId}`,
+                url: `${this.uri}/add_results_for_cases/${runId}`,
                 headers: this.commonHeaders,
                 auth: {
                     username: this.options.username,
@@ -118,7 +117,7 @@ export class TestRailClient {
         return new Promise((resolve, reject) => {
             axios({
                 method: 'post',
-                url: `${this.base}/update_run/${runId}`,
+                url: `${this.uri}/update_run/${runId}`,
                 headers: this.commonHeaders,
                 auth: {
                     username: this.options.username,
