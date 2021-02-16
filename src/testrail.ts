@@ -3,11 +3,35 @@ const axios = require("axios");
 import { TestRailOptions, TestRailResult } from "./testrail.interface";
 
 export class TestRailClient {
-    public uri: String = "/index.php?/api/v2";
-    public base: String;
+    private indexUri = "/index.php?";
+    public uri: String = `${this.indexUri}/api/v2`;
+    private commonHeaders = { 'Content-Type': 'application/json', 'x-api-ident': 'beta' };
 
     constructor(private options: TestRailOptions) {
-        this.base = `https://${options.domain}${this.uri}`;
+        axios.defaults.baseURL = `https://${options.domain}`;
+    }
+
+    private handlePaginatedGetAxios = (requestUrl, itemName, items, resolve, reject) => {
+        const __this = this;
+        axios({
+            method: 'get',
+            url: requestUrl,
+            headers: this.commonHeaders,
+            auth: {
+                username: this.options.username,
+                password: this.options.password,
+            }
+        })
+            .then(function (response) {
+                const retrievedItems = items.concat(response.data[itemName]);
+                if (response.data._links.next !== null) {
+                    __this.handlePaginatedGetAxios(`${__this.indexUri}/${response.data._links.next}`, itemName, retrievedItems, resolve, reject)
+                }
+                else {
+                    resolve(retrievedItems)
+                }
+            })
+            .catch(function (error) { reject(error) });
     }
 
     public addRun(name: string, description: string, projectId: string, suiteId?: number, cases?: Array<number>) {
@@ -25,8 +49,8 @@ export class TestRailClient {
 
             axios({
                 method: 'post',
-                url: `${this.base}/add_run/${projectId}`,
-                headers: { 'Content-Type': 'application/json' },
+                url: `${this.uri}/add_run/${projectId}`,
+                headers: this.commonHeaders,
                 auth: {
                     username: this.options.username,
                     password: this.options.password,
@@ -40,17 +64,7 @@ export class TestRailClient {
 
     public getTests(runId: number) {
         return new Promise((resolve, reject) => {
-            axios({
-                method: 'GET',
-                url: `${this.base}/get_tests/${runId}`,
-                headers: { 'Content-Type': 'application/json' },
-                auth: {
-                    username: this.options.username,
-                    password: this.options.password,
-                },
-            })
-                .then(function (response) { resolve(response.data) })
-                .catch(function (error) { reject(error) });
+            this.handlePaginatedGetAxios(`${this.uri}/get_tests/${runId}`, 'tests', [], resolve, reject);
         });
     }
 
@@ -59,17 +73,7 @@ export class TestRailClient {
             const params = ""
                 + (suiteId ? `/&suite_id=${suiteId}` : "");
 
-            axios({
-                method: 'get',
-                url: `${this.base}/get_cases/${projectId}${params}`,
-                headers: { 'Content-Type': 'application/json' },
-                auth: {
-                    username: this.options.username,
-                    password: this.options.password,
-                }
-            })
-                .then(function (response) { resolve(response.data) })
-                .catch(function (error) { reject(error) });
+            this.handlePaginatedGetAxios(`${this.uri}/get_cases/${projectId}${params}`, 'cases', [], resolve, reject);
         });
     };
 
@@ -77,8 +81,8 @@ export class TestRailClient {
         return new Promise((resolve, reject) => {
             axios({
                 method: 'post',
-                url: `${this.base}/close_run/${runId}`,
-                headers: { 'Content-Type': 'application/json' },
+                url: `${this.uri}/close_run/${runId}`,
+                headers: this.commonHeaders,
                 auth: {
                     username: this.options.username,
                     password: this.options.password,
@@ -93,8 +97,8 @@ export class TestRailClient {
         return new Promise((resolve, reject) => {
             axios({
                 method: 'post',
-                url: `${this.base}/add_results_for_cases/${runId}`,
-                headers: { 'Content-Type': 'application/json' },
+                url: `${this.uri}/add_results_for_cases/${runId}`,
+                headers: this.commonHeaders,
                 auth: {
                     username: this.options.username,
                     password: this.options.password,
@@ -113,8 +117,8 @@ export class TestRailClient {
         return new Promise((resolve, reject) => {
             axios({
                 method: 'post',
-                url: `${this.base}/update_run/${runId}`,
-                headers: { 'Content-Type': 'application/json' },
+                url: `${this.uri}/update_run/${runId}`,
+                headers: this.commonHeaders,
                 auth: {
                     username: this.options.username,
                     password: this.options.password,
