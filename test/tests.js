@@ -14,9 +14,16 @@ describe('Tests api', function () {
     it('getTests(1) pass', function (done) {
         nock(`https://${options.domain}`)
             .get(testrail.uri + '/get_tests/123')
-            .reply(200, [
-                { 'status': 'ok' }
-            ]);
+            .reply(200, {
+                "offset": 0,
+                "limit": 250,
+                "size": 46,
+                "_links": {
+                    "next": null,
+                    "prev": null
+                },
+                "tests": []
+            });
 
         testrail.getTests(123)
             .then(() => {

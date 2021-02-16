@@ -65,17 +65,7 @@ export class TestRailClient {
 
     public getTests(runId: number) {
         return new Promise((resolve, reject) => {
-            axios({
-                method: 'GET',
-                url: `${this.base}/get_tests/${runId}`,
-                headers: this.commonHeaders,
-                auth: {
-                    username: this.options.username,
-                    password: this.options.password,
-                },
-            })
-                .then(function (response) { resolve(response.data) })
-                .catch(function (error) { reject(error) });
+            this.handlePaginatedGetAxios(`${this.base}/get_tests/${runId}`, 'tests', [], resolve, reject);
         });
     }
 
