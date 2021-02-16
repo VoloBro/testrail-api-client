@@ -5,9 +5,34 @@ import { TestRailOptions, TestRailResult } from "./testrail.interface";
 export class TestRailClient {
     public uri: String = "/index.php?/api/v2";
     public base: String;
+    private commonHeaders = { 'Content-Type': 'application/json', 'x-api-ident': 'beta' };
 
     constructor(private options: TestRailOptions) {
         this.base = `https://${options.domain}${this.uri}`;
+    }
+
+    private handlePaginatedGetAxios = (requestUrl, itemName, items, resolve, reject) => {
+        axios({
+            method: 'get',
+            url: requestUrl,
+            headers: this.commonHeaders,
+            auth: {
+                username: this.options.username,
+                password: this.options.password,
+            }
+        })
+            .then(function (response) {
+                console.log(JSON.stringify(response.data));
+                
+                const retrievedItems = items.concat(response.data[itemName]);
+                if (response.data._links.next !== null) {
+                    this.handlePaginatedGetAxios(`${this.base}${response.data._links.next}`, itemName, retrievedItems, resolve, reject)
+                }
+                else {
+                    resolve(retrievedItems)
+                }
+            })
+            .catch(function (error) { reject(error) });
     }
 
     public addRun(name: string, description: string, projectId: string, suiteId?: number, cases?: Array<number>) {
@@ -26,7 +51,7 @@ export class TestRailClient {
             axios({
                 method: 'post',
                 url: `${this.base}/add_run/${projectId}`,
-                headers: { 'Content-Type': 'application/json' },
+                headers: this.commonHeaders,
                 auth: {
                     username: this.options.username,
                     password: this.options.password,
@@ -43,7 +68,7 @@ export class TestRailClient {
             axios({
                 method: 'GET',
                 url: `${this.base}/get_tests/${runId}`,
-                headers: { 'Content-Type': 'application/json' },
+                headers: this.commonHeaders,
                 auth: {
                     username: this.options.username,
                     password: this.options.password,
@@ -59,17 +84,7 @@ export class TestRailClient {
             const params = ""
                 + (suiteId ? `/&suite_id=${suiteId}` : "");
 
-            axios({
-                method: 'get',
-                url: `${this.base}/get_cases/${projectId}${params}`,
-                headers: { 'Content-Type': 'application/json' },
-                auth: {
-                    username: this.options.username,
-                    password: this.options.password,
-                }
-            })
-                .then(function (response) { resolve(response.data) })
-                .catch(function (error) { reject(error) });
+            this.handlePaginatedGetAxios(`${this.base}/get_cases/${projectId}${params}`, 'cases', [], resolve, reject);
         });
     };
 
@@ -78,7 +93,7 @@ export class TestRailClient {
             axios({
                 method: 'post',
                 url: `${this.base}/close_run/${runId}`,
-                headers: { 'Content-Type': 'application/json' },
+                headers: this.commonHeaders,
                 auth: {
                     username: this.options.username,
                     password: this.options.password,
@@ -94,7 +109,7 @@ export class TestRailClient {
             axios({
                 method: 'post',
                 url: `${this.base}/add_results_for_cases/${runId}`,
-                headers: { 'Content-Type': 'application/json' },
+                headers: this.commonHeaders,
                 auth: {
                     username: this.options.username,
                     password: this.options.password,
@@ -114,7 +129,7 @@ export class TestRailClient {
             axios({
                 method: 'post',
                 url: `${this.base}/update_run/${runId}`,
-                headers: { 'Content-Type': 'application/json' },
+                headers: this.commonHeaders,
                 auth: {
                     username: this.options.username,
                     password: this.options.password,

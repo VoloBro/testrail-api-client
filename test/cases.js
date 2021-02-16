@@ -14,9 +14,18 @@ describe('cases api', function () {
     it('getCases(1) pass', function (done) {
         nock(`https://${options.domain}`)
             .get(testrail.uri + '/get_cases/1')
-            .reply(200, [
-                { 'status': 'ok' }
-            ]);
+            .reply(200, 
+                {
+                    "offset": 3000,
+                    "limit": 250,
+                    "size": 0,
+                    "_links": {
+                        "next": null,
+                        "prev": "/api/v2/get_cases/108&suite_id=974&limit=250&offset=2750"
+                    },
+                    "cases": []
+                }
+            );
 
         testrail.getCases(1)
             .then(() => {
@@ -40,9 +49,16 @@ describe('cases api', function () {
     it('getCases(1, 123) pass', function (done) {
         nock(`https://${options.domain}`)
             .get(testrail.uri + '/get_cases/1/&suite_id=123')
-            .reply(200, [
-                { 'status': 'ok' }
-            ]);
+            .reply(200, {
+                "offset": 3000,
+                "limit": 250,
+                "size": 0,
+                "_links": {
+                    "next": null,
+                    "prev": "/api/v2/get_cases/108&suite_id=974&limit=250&offset=2750"
+                },
+                "cases": []
+            });
 
         testrail.getCases(1, 123)
             .then(() => {
