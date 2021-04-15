@@ -1,7 +1,5 @@
-const axios = require("axios");
+import axios, { AxiosInstance } from 'axios';
 const axiosRetry = require('axios-retry');
-
-axiosRetry(axios, { retries: 3 });
 
 import { TestRailOptions, TestRailResult } from "./testrail.interface";
 
@@ -9,16 +7,19 @@ export class TestRailClient {
     private indexUri = "/index.php?";
     public uri: String = `${this.indexUri}/api/v2`;
     private commonHeaders = { 'Content-Type': 'application/json', 'x-api-ident': 'beta' };
+    private axiosInstance: AxiosInstance;
 
     constructor(private options: TestRailOptions) {
-        axios.defaults.baseURL = `https://${options.domain}`;
+        this.axiosInstance = axios.create({
+            baseURL: `https://${options.domain}`,
+        })
+        axiosRetry(axios, { retries: 3 });
+        axiosRetry(this.axiosInstance, { retries: 3 });
     }
 
     private handlePaginatedGetAxios = (requestUrl, itemName, items, resolve, reject) => {
         const __this = this;
-        axios({
-            method: 'get',
-            url: requestUrl,
+        this.axiosInstance.get(requestUrl, {
             headers: this.commonHeaders,
             auth: {
                 username: this.options.username,
@@ -50,9 +51,7 @@ export class TestRailClient {
                 body["suite_id"] = suiteId;
             }
 
-            axios({
-                method: 'post',
-                url: `${this.uri}/add_run/${projectId}`,
+            this.axiosInstance.post(`${this.uri}/add_run/${projectId}`, {
                 headers: this.commonHeaders,
                 auth: {
                     username: this.options.username,
@@ -82,9 +81,7 @@ export class TestRailClient {
 
     public closeRun(runId) {
         return new Promise((resolve, reject) => {
-            axios({
-                method: 'post',
-                url: `${this.uri}/close_run/${runId}`,
+            this.axiosInstance.post(`${this.uri}/close_run/${runId}`, {
                 headers: this.commonHeaders,
                 auth: {
                     username: this.options.username,
@@ -98,9 +95,7 @@ export class TestRailClient {
 
     public addResultsForCases(runId, results: TestRailResult[]) {
         return new Promise((resolve, reject) => {
-            axios({
-                method: 'post',
-                url: `${this.uri}/add_results_for_cases/${runId}`,
+            this.axiosInstance.post(`${this.uri}/add_results_for_cases/${runId}`, {
                 headers: this.commonHeaders,
                 auth: {
                     username: this.options.username,
@@ -118,9 +113,7 @@ export class TestRailClient {
 
     public updateRunDescription(runId, description) {
         return new Promise((resolve, reject) => {
-            axios({
-                method: 'post',
-                url: `${this.uri}/update_run/${runId}`,
+            this.axiosInstance.post(`${this.uri}/update_run/${runId}`, {
                 headers: this.commonHeaders,
                 auth: {
                     username: this.options.username,
