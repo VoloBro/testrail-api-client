@@ -13,7 +13,6 @@ export class TestRailClient {
         this.axiosInstance = axios.create({
             baseURL: `https://${options.domain}`,
         })
-        axiosRetry(axios, { retries: 3 });
         axiosRetry(this.axiosInstance, { retries: 3 });
     }
 
@@ -51,13 +50,12 @@ export class TestRailClient {
                 body["suite_id"] = suiteId;
             }
 
-            this.axiosInstance.post(`${this.uri}/add_run/${projectId}`, {
+            this.axiosInstance.post(`${this.uri}/add_run/${projectId}`, JSON.stringify(body), {
                 headers: this.commonHeaders,
                 auth: {
                     username: this.options.username,
                     password: this.options.password,
-                },
-                data: JSON.stringify(body),
+                }
             })
                 .then(function (response) { resolve(response.data.id) })
                 .catch(function (error) { reject(error) });
@@ -81,7 +79,7 @@ export class TestRailClient {
 
     public closeRun(runId) {
         return new Promise((resolve, reject) => {
-            this.axiosInstance.post(`${this.uri}/close_run/${runId}`, {
+            this.axiosInstance.post(`${this.uri}/close_run/${runId}`, {}, {
                 headers: this.commonHeaders,
                 auth: {
                     username: this.options.username,
@@ -95,13 +93,12 @@ export class TestRailClient {
 
     public addResultsForCases(runId, results: TestRailResult[]) {
         return new Promise((resolve, reject) => {
-            this.axiosInstance.post(`${this.uri}/add_results_for_cases/${runId}`, {
+            this.axiosInstance.post(`${this.uri}/add_results_for_cases/${runId}`, JSON.stringify({ "results": results }), {
                 headers: this.commonHeaders,
                 auth: {
                     username: this.options.username,
                     password: this.options.password,
-                },
-                data: JSON.stringify({ "results": results }),
+                }
             })
                 .then(function (response) {
                     resolve();
@@ -113,13 +110,12 @@ export class TestRailClient {
 
     public updateRunDescription(runId, description) {
         return new Promise((resolve, reject) => {
-            this.axiosInstance.post(`${this.uri}/update_run/${runId}`, {
+            this.axiosInstance.post(`${this.uri}/update_run/${runId}`, JSON.stringify({ "description": description }), {
                 headers: this.commonHeaders,
                 auth: {
                     username: this.options.username,
                     password: this.options.password,
-                },
-                data: JSON.stringify({ "description": description }),
+                }
             })
                 .then(function (response) {
                     resolve();
