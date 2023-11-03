@@ -24,12 +24,38 @@ describe('plans api', function () {
             })
     });
 
+    it('addAttachmentToResult pass', function (done) {
+        nock(`https://${options.domain}`)
+            .post(testrail.uri + '/add_attachment_to_result/1')
+            .reply(200, [
+                { 'id': 1 }
+            ]);
+
+        testrail.addAttachmentToResult(1, '../testrail-api-client/README.md')
+            .then(() => {
+                done();
+            })
+    });
+
     it('addResultsForCases fail', function (done) {
         nock(`https://${options.domain}`)
             .post(testrail.uri + '/add_results_for_cases/2')
             .reply(401, 'nok');
 
         testrail.addResultsForCases(2, [{ 'comment': 'This test failed' }])
+            .catch((err) => {
+                expect(err.response.status).to.equal(401);
+                expect(err.response.data).to.equal('nok');
+                done();
+            });
+    });
+
+    it('addAttachmentToResult fail', function (done) {
+        nock(`https://${options.domain}`)
+            .post(testrail.uri + '/add_attachment_to_result/2')
+            .reply(401, 'nok');
+
+        testrail.addAttachmentToResult(2, '../testrail-api-client/README.md')
             .catch((err) => {
                 expect(err.response.status).to.equal(401);
                 expect(err.response.data).to.equal('nok');
