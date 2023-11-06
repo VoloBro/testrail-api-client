@@ -19,7 +19,9 @@ describe('plans api', function () {
             ]);
 
         testrail.addResultsForCases(1, [{ 'comment': 'This test failed' }])
-            .then(() => {
+            .then((res) => {
+                expect(res.length).to.equal(1);
+                expect(res[0].id).to.equal(1);
                 done();
             })
     });
@@ -27,12 +29,12 @@ describe('plans api', function () {
     it('addAttachmentToResult pass', function (done) {
         nock(`https://${options.domain}`)
             .post(testrail.uri + '/add_attachment_to_result/1')
-            .reply(200, [
-                { 'id': 1 }
-            ]);
+            .reply(200, { 'id': 1 });
 
         testrail.addAttachmentToResult(1, '../testrail-api-client/README.md')
-            .then(() => {
+            .then((res) => {
+                expect(res.status).to.equal(200);
+                expect(res.data.id).to.equal(1);
                 done();
             })
     });
