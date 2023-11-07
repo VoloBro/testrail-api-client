@@ -62,11 +62,11 @@ describe('runs api', function () {
     it('closeRun pass', function (done) {
         nock(`https://${options.domain}`)
             .post(testrail.uri + '/close_run/1')
-            .reply(200, [
-                { 'status': 'ok' }
-            ]);
+            .reply(200, { 'status': 'ok' });
         testrail.closeRun(1)
-            .then(() => {
+            .then((res) => {
+                expect(res.status).to.equal(200);
+                expect(res.data.status).to.equal("ok");
                 done();
             })
     });
@@ -86,11 +86,11 @@ describe('runs api', function () {
     it('updateRunDescription(runId, description) pass', function (done) {
         nock(`https://${options.domain}`)
             .post(testrail.uri + '/update_run/123')
-            .reply(200, [
-                { 'status': 'ok' }
-            ]);
+            .reply(200, { 'status': 'ok' });
         testrail.updateRunDescription(123, "World")
-            .then(() => {
+            .then((res) => {
+                expect(res.status).to.equal(200);
+                expect(res.data.status).to.equal("ok");
                 done();
             })
     });

@@ -1,5 +1,7 @@
 import axios, { AxiosInstance } from 'axios';
 const axiosRetry = require('axios-retry');
+const FormData = require('form-data');
+const fs = require('fs');
 
 import { TestRailOptions, TestRailResult } from "./testrail.interface";
 
@@ -86,7 +88,7 @@ export class TestRailClient {
                     password: this.options.password,
                 },
             })
-                .then(function (res) { resolve() })
+                .then(function (res) { resolve(res) })
                 .catch(function (error) { reject(error) });
         });
     }
@@ -101,11 +103,30 @@ export class TestRailClient {
                 }
             })
                 .then(function (response) {
-                    resolve();
+                    resolve(response.data);
                 })
                 .catch(function (error) { reject(error) });
         })
+    }
 
+    public addAttachmentToResult(resultId: number, filePath: string) {
+        return new Promise((resolve, reject) => {
+            const formData = new FormData();
+            const file = fs.createReadStream(filePath);
+            formData.append("attachment", file);
+
+            this.axiosInstance.post(`${this.uri}/add_attachment_to_result/${resultId}`, formData, {
+                headers:  { "Content-Type": `multipart/form-data; boundary=${formData._boundary}` },
+                auth: {
+                    username: this.options.username,
+                    password: this.options.password,
+                }
+            })
+                .then(function (response) {
+                    resolve(response);
+                })
+                .catch(function (error) { reject(error) });
+        })
     }
 
     public updateRunDescription(runId, description) {
@@ -118,7 +139,7 @@ export class TestRailClient {
                 }
             })
                 .then(function (response) {
-                    resolve();
+                    resolve(response);
                 })
                 .catch(function (error) { reject(error) });
         })
