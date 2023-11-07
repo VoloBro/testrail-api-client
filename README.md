@@ -3,7 +3,6 @@
 TypeScript and JavaScript binding for TestRail API v2
 
 [![npm version](https://img.shields.io/npm/v/testrail-api-client.svg?style=flat-square)](https://www.npmjs.com/package/testrail-api-client)
-![Node.js Package](https://github.com/VoloBro/testrail-api-client/workflows/Node.js%20Package/badge.svg)
 [![Coverage Status](https://coveralls.io/repos/github/VoloBro/testrail-api-client/badge.svg?branch=master)](https://coveralls.io/github/VoloBro/testrail-api-client?branch=master)
 [![npm downloads](https://img.shields.io/npm/dm/testrail-api-client.svg?style=flat-square)](http://npm-stat.com/charts.html?package=testrail-api-client)
 
@@ -120,6 +119,20 @@ client
   .updateRunDescription(runId, description)
   .then(() => {
     console.log("Done");
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+```
+
+### addAttachmentToResult
+
+```js
+const runId = 123;
+client
+  .addAttachmentToResult(runId, '../testrail-api-client/README.md')
+  .then((response) => {
+    console.log("Done", response);
   })
   .catch((err) => {
     console.log(err);
