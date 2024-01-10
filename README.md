@@ -52,8 +52,9 @@ const runDescription = "Example Run Description";
 const projectId = 1;
 const testSuiteId = 123; // optional
 const caseIds = [1, 2, 3]; // optional
+const milestoneId = 4; // optional
 client
-  .addRun(runName, runDescription, projectId, testSuiteId, caseIds)
+  .addRun(runName, runDescription, projectId, testSuiteId, caseIds, milestoneId)
   .then(function (runId) {
     console.log(`Created run with id: ${runId}`);
   })

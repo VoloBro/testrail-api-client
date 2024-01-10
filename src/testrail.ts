@@ -39,7 +39,7 @@ export class TestRailClient {
             .catch(function (error) { reject(error) });
     }
 
-    public addRun(name: string, description: string, projectId: string, suiteId?: number, cases?: Array<number>) {
+    public addRun(name: string, description: string, projectId: string, suiteId?: number, cases?: Array<number>, milestoneId?: string) {
         return new Promise((resolve, reject) => {
             const body = {
                 name,
@@ -50,6 +50,9 @@ export class TestRailClient {
 
             if (suiteId) {
                 body["suite_id"] = suiteId;
+            }
+            if (milestoneId) {
+                body["milestone_id"] = milestoneId;
             }
 
             this.axiosInstance.post(`${this.uri}/add_run/${projectId}`, JSON.stringify(body), {
