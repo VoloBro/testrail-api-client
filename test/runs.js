@@ -61,11 +61,11 @@ describe('runs api', function () {
 
     it('addRun(name,desc,projectid,suiteId,cases,milestoneId) pass', function (done) {
         nock(`https://${options.domain}`)
-            .post(testrail.uri + '/add_run/4')
+            .post(testrail.uri + '/add_run/5')
             .reply(200, [
                 { 'status': 'ok' }
             ]);
-        testrail.addRun("Hello", "World", 3, 123, [1, 2, 3], 4)
+        testrail.addRun("Hello", "World", 5, 123, [1, 2, 3], 4)
             .then(() => {
                 done();
             })
