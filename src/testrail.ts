@@ -2,6 +2,7 @@ import axios, { AxiosInstance } from 'axios';
 const axiosRetry = require('axios-retry');
 const FormData = require('form-data');
 const fs = require('fs');
+const https = require('https');
 
 import { TestRailOptions, TestRailResult } from "./testrail.interface";
 
@@ -11,8 +12,14 @@ export class TestRailClient {
     private commonHeaders = { 'Content-Type': 'application/json', 'x-api-ident': 'beta' };
     private axiosInstance: AxiosInstance;
 
+    const agent = new https.Agent({
+        rejectUnauthorized: false, // to ignore the self-signed certificate error
+    });
+
     constructor(private options: TestRailOptions) {
         this.axiosInstance = axios.create({
+            // https://axios-http.com/docs/req_config
+            httpsAgent: agent,
             baseURL: `https://${options.domain}`,
         })
         axiosRetry(this.axiosInstance, { retries: 3 });
