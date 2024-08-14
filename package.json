@@ -1,6 +1,6 @@
 {
   "name": "testrail-api-client",
-  "version": "1.0.28",
+  "version": "1.0.30",
   "description": "JavaScript client for TestRail API",
   "main": "index.js",
   "files": [
@@ -21,7 +21,7 @@
     "url": "https://github.com/VoloBro/testrail-api-client/issues"
   },
   "dependencies": {
-    "axios": "^1.6.0",
+    "axios": "^1.7.4",
     "axios-retry": "^3.1.9",
     "form-data": "^4.0.0"
   },
