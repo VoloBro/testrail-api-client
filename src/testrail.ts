@@ -46,7 +46,7 @@ export class TestRailClient {
             .catch(function (error) { reject(error) });
     }
 
-    public addRun(name: string, description: string, projectId: string, suiteId?: number, cases?: Array<number>, milestoneId?: string) {
+    public addRun(name: string, description: string, projectId: string, suiteId?: number, cases?: Array<number>, milestoneId?: string, refs?: string) {
         return new Promise((resolve, reject) => {
             const body = {
                 name,
@@ -61,7 +61,9 @@ export class TestRailClient {
             if (milestoneId) {
                 body["milestone_id"] = milestoneId;
             }
-
+            if (refs) {
+                body["refs"] = refs;
+            }
             this.axiosInstance.post(`${this.uri}/add_run/${projectId}`, JSON.stringify(body), {
                 headers: this.commonHeaders,
                 auth: {
