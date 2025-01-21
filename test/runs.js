@@ -71,6 +71,18 @@ describe('runs api', function () {
             })
     });
 
+    it('addRun(name,desc,projectid,suiteId,cases,milestoneId,refs) pass', function (done) {
+        nock(`https://${options.domain}`)
+            .post(testrail.uri + '/add_run/6')
+            .reply(200, [
+                { 'status': 'ok' }
+            ]);
+        testrail.addRun("Hello", "World", 5, 123, [1, 2, 3], 4, "ref")
+            .then(() => {
+                done();
+            })
+    });
+
     it('closeRun pass', function (done) {
         nock(`https://${options.domain}`)
             .post(testrail.uri + '/close_run/1')

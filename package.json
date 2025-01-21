@@ -1,6 +1,6 @@
 {
   "name": "testrail-api-client",
-  "version": "1.0.30",
+  "version": "1.0.31",
   "description": "JavaScript client for TestRail API",
   "main": "index.js",
   "files": [
