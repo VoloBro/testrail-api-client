@@ -77,7 +77,7 @@ describe('runs api', function () {
             .reply(200, [
                 { 'status': 'ok' }
             ]);
-        testrail.addRun("Hello", "World", 5, 123, [1, 2, 3], 4, "ref")
+        testrail.addRun("Hello", "World", 6, 123, [1, 2, 3], 4, "ref")
             .then(() => {
                 done();
             })
