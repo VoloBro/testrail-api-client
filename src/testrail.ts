@@ -9,7 +9,7 @@ import { TestRailOptions, TestRailResult } from "./testrail.interface";
 export class TestRailClient {
     private indexUri = "/index.php?";
     public uri: String = `${this.indexUri}/api/v2`;
-    private commonHeaders = { 'Content-Type': 'application/json', 'x-api-ident': 'beta' };
+    private commonHeaders = { 'Content-Type': 'application/json' };
     private axiosInstance: AxiosInstance;
 
     private agent = new https.Agent({
