@@ -21,7 +21,7 @@
     "url": "https://github.com/VoloBro/testrail-api-client/issues"
   },
   "dependencies": {
-    "axios": "^1.7.4",
+    "axios": "^0.27.2",
     "axios-retry": "^3.1.9",
     "form-data": "^4.0.0"
   },
