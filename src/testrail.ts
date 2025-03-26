@@ -1,4 +1,6 @@
-import axios, { AxiosInstance } from 'axios';
+// import axios, { AxiosInstance } from 'axios';
+import type { AxiosInstance } from 'axios';
+const axios = require('axios');
 const axiosRetry = require('axios-retry');
 const FormData = require('form-data');
 const fs = require('fs');
