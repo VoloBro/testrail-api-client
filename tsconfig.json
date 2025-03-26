@@ -11,7 +11,7 @@
     "pretty": true,
     "outDir": "dist",
     "typeRoots": ["node_modules/@types"],
-    "lib": [ "es2017", "dom" ]
+    "lib": [ "es5"]
   },
   "exclude": [
     "node_modules",
