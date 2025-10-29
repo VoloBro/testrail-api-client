@@ -42,8 +42,8 @@
     "clean": "rimraf dist",
     "build": "yarn run clean && yarn run tsc",
     "precommit": "yarn version --patch",
-    "test": "./node_modules/.bin/_mocha",
-    "coverage": "./node_modules/.bin/istanbul cover --report html node_modules/.bin/_mocha --check-leaks",
-    "coverageci": "./node_modules/istanbul/lib/cli.js cover ./node_modules/.bin/_mocha && cat ./coverage/lcov.info | ./node_modules/.bin/coveralls"
+    "test": "mocha",
+    "coverage": "istanbul cover --report html node_modules/mocha/bin/_mocha --check-leaks",
+    "coverageci": "istanbul cover node_modules/mocha/bin/_mocha && cat ./coverage/lcov.info | coveralls"
   }
 }
