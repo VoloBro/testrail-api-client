@@ -1,3 +1,10 @@
+## [1.0.43](https://github.com/VoloBro/testrail-api-client/compare/1.0.42...1.0.43) (2026-07-15)
+
+
+### Bug Fixes
+
+* test change to trigger version change ([fe20ef7](https://github.com/VoloBro/testrail-api-client/commit/fe20ef7b5201c6f26f69c58ebf33e86bb82c2e92))
+
 ## [1.0.42](https://github.com/VoloBro/testrail-api-client/compare/1.0.41...1.0.42) (2026-07-15)
 
 
