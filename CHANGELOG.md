@@ -1,3 +1,10 @@
+## [1.0.45](https://github.com/VoloBro/testrail-api-client/compare/1.0.44...1.0.45) (2026-07-15)
+
+
+### Bug Fixes
+
+* use a PAT to create releases so npmpublish.yml actually triggers ([#42](https://github.com/VoloBro/testrail-api-client/issues/42)) ([057299f](https://github.com/VoloBro/testrail-api-client/commit/057299f5b24f1c018df90dfebfb58722fbeb574c))
+
 ## [1.0.44](https://github.com/VoloBro/testrail-api-client/compare/1.0.43...1.0.44) (2026-07-15)
 
 
