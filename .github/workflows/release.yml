@@ -1,0 +1,38 @@
+# Bumps the version, generates a changelog, and creates a GitHub Release
+# based on Conventional Commits on every push to master.
+# semantic-release runs in its own isolated install (not the project's
+# node_modules) to avoid dependency conflicts with the project's toolchain.
+# The actual npm publish happens in npmpublish.yml, triggered by that release.
+name: Release
+
+on:
+  push:
+    branches:
+      - master
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: yarn install
+      - run: yarn build
+      - run: yarn test
+      - name: Release
+        uses: cycjimmy/semantic-release-action@v4
+        with:
+          extra_plugins: |
+            @semantic-release/changelog@6
+            @semantic-release/git@10
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

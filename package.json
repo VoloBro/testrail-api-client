@@ -41,7 +41,6 @@
     "tsc": "tsc",
     "clean": "rimraf dist",
     "build": "yarn run clean && yarn run tsc",
-    "precommit": "yarn version --patch",
     "test": "mocha",
     "coverage": "istanbul cover --report html node_modules/mocha/bin/_mocha --check-leaks",
     "coverageci": "istanbul cover node_modules/mocha/bin/_mocha && cat ./coverage/lcov.info | coveralls"
