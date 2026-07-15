@@ -23,7 +23,8 @@
   "dependencies": {
     "axios": "^0.27.2",
     "axios-retry": "^3.1.9",
-    "form-data": "^4.0.0"
+    "form-data": "^4.0.0",
+    "js-yaml": "^3.15.0"
   },
   "devDependencies": {
     "@types/chai": "^4.3.9",
@@ -32,7 +33,7 @@
     "chai": "^4.2.0",
     "coveralls": "^3.0.11",
     "istanbul": "^0.4.5",
-    "mocha": "^10.2.0",
+    "mocha": "^11.7.6",
     "nock": "^13.3.8",
     "rimraf": "^5.0.5",
     "typescript": "^5.2.2"
