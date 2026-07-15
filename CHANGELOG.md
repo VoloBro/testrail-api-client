@@ -1,3 +1,10 @@
+## [1.0.44](https://github.com/VoloBro/testrail-api-client/compare/1.0.43...1.0.44) (2026-07-15)
+
+
+### Bug Fixes
+
+* publish to npm on release published, not just created ([#41](https://github.com/VoloBro/testrail-api-client/issues/41)) ([b6318fc](https://github.com/VoloBro/testrail-api-client/commit/b6318fc288768fbf9b8f9a7afdd2144dfd96633c))
+
 ## [1.0.43](https://github.com/VoloBro/testrail-api-client/compare/1.0.42...1.0.43) (2026-07-15)
 
 
