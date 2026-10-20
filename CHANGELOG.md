@@ -1,3 +1,10 @@
+## [1.0.47](https://github.com/VoloBro/testrail-api-client/compare/1.0.46...1.0.47) (2026-10-20)
+
+
+### Bug Fixes
+
+* **deps:** remove unused js-yaml, bump form-data to patch critical CVEs ([#48](https://github.com/VoloBro/testrail-api-client/issues/48)) ([399c890](https://github.com/VoloBro/testrail-api-client/commit/399c8904f9c45858f6435eb0f9ba68cec8d52f36))
+
 ## [1.0.46](https://github.com/VoloBro/testrail-api-client/compare/1.0.45...1.0.46) (2026-10-20)
 
 
