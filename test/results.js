@@ -64,4 +64,48 @@ describe('plans api', function () {
                 done();
             });
     });
+
+    it('addAttachmentToResult sends a single valid multipart/form-data Content-Type header', function (done) {
+        let capturedHeaders;
+
+        nock(`https://${options.domain}`)
+            .post(testrail.uri + '/add_attachment_to_result/3')
+            .reply(function (uri, requestBody) {
+                capturedHeaders = this.req.headers;
+                return [200, { id: 1 }];
+            });
+
+        testrail.addAttachmentToResult(3, '../testrail-api-client/README.md')
+            .then((res) => {
+                const contentType = capturedHeaders['content-type'];
+
+                // only one content-type header should have been sent
+                expect(capturedHeaders['content-type']).to.not.be.an('array');
+
+                expect(contentType).to.match(/^multipart\/form-data; boundary=.+/);
+                expect(contentType).to.not.include('boundary=undefined');
+
+                done();
+            })
+            .catch(done);
+    });
+
+    it('addAttachmentToResult sends the file contents in the attachment field', function (done) {
+        let capturedBody;
+
+        nock(`https://${options.domain}`)
+            .post(testrail.uri + '/add_attachment_to_result/4')
+            .reply(function (uri, requestBody) {
+                capturedBody = requestBody;
+                return [200, { id: 1 }];
+            });
+
+        testrail.addAttachmentToResult(4, '../testrail-api-client/README.md')
+            .then((res) => {
+                expect(capturedBody).to.include('Content-Disposition: form-data; name="attachment"; filename="README.md"');
+                expect(capturedBody).to.include('testrail-api-client');
+                done();
+            })
+            .catch(done);
+    });
 });

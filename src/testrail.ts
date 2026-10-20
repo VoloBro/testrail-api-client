@@ -130,7 +130,7 @@ export class TestRailClient {
             formData.append("attachment", file);
 
             this.axiosInstance.post(`${this.uri}/add_attachment_to_result/${resultId}`, formData, {
-                headers:  { "Content-Type": `multipart/form-data; boundary=${formData._boundary}` },
+                headers: formData.getHeaders(),
                 auth: {
                     username: this.options.username,
                     password: this.options.password,
