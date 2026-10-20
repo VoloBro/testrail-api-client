@@ -1,3 +1,10 @@
+## [2.0.2](https://github.com/VoloBro/testrail-api-client/compare/2.0.1...2.0.2) (2026-10-20)
+
+
+### Bug Fixes
+
+* trigger release for CI fixes skipped by squash-merge title ([#53](https://github.com/VoloBro/testrail-api-client/issues/53)) ([c5640eb](https://github.com/VoloBro/testrail-api-client/commit/c5640eb07aefdaaa089456b7088dc811b3d193aa)), closes [#52](https://github.com/VoloBro/testrail-api-client/issues/52) [#52](https://github.com/VoloBro/testrail-api-client/issues/52)
+
 ## [2.0.1](https://github.com/VoloBro/testrail-api-client/compare/2.0.0...2.0.1) (2026-10-20)
 
 
