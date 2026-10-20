@@ -37,5 +37,16 @@ jobs:
       - name: Update npm
         run: npm install -g npm@latest
       - run: yarn install
+        env:
+          # actions/setup-node's registry-url input writes a .npmrc
+          # containing //registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}.
+          # We publish via OIDC trusted publishing (no NODE_AUTH_TOKEN secret),
+          # but unlike npm, yarn classic errors if it can't resolve any ${VAR}
+          # in .npmrc, even an unused one. This placeholder only satisfies
+          # that substitution for install/build - the actual publish step
+          # below is left untouched so OIDC auth applies there.
+          NODE_AUTH_TOKEN: unused-yarn-npmrc-placeholder
       - run: yarn build
+        env:
+          NODE_AUTH_TOKEN: unused-yarn-npmrc-placeholder
       - run: npm publish --provenance
