@@ -1,3 +1,20 @@
+# [2.0.0](https://github.com/VoloBro/testrail-api-client/compare/1.0.47...2.0.0) (2026-10-20)
+
+
+### Bug Fixes
+
+* trigger release skipped by unsupported commit-message syntax ([#50](https://github.com/VoloBro/testrail-api-client/issues/50)) ([ad48f50](https://github.com/VoloBro/testrail-api-client/commit/ad48f502e81a50ffb58c9dbb46fed3c2957094a8)), closes [#49](https://github.com/VoloBro/testrail-api-client/issues/49)
+
+
+### BREAKING CHANGES
+
+* to this package's own public API, since switching to
+a "!"-aware preset now would retroactively reclassify the unreleased
+axios/mocha commit as breaking and trigger an unwarranted major bump.
+
+Co-authored-by: Vova <vpl.mtl@gmail.com>
+Co-authored-by: Claude Sonnet 5 <noreply@anthropic.com>
+
 ## [1.0.47](https://github.com/VoloBro/testrail-api-client/compare/1.0.46...1.0.47) (2026-10-20)
 
 
