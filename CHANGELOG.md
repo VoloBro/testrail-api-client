@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/VoloBro/testrail-api-client/compare/2.0.0...2.0.1) (2026-10-20)
+
+
+### Bug Fixes
+
+* **ci:** bump actions/checkout and actions/setup-node to v7 ([#51](https://github.com/VoloBro/testrail-api-client/issues/51)) ([d5c7a29](https://github.com/VoloBro/testrail-api-client/commit/d5c7a29a8d86246b48b78cbbfaecda21bb9cccc2))
+
 # [2.0.0](https://github.com/VoloBro/testrail-api-client/compare/1.0.47...2.0.0) (2026-10-20)
 
 
