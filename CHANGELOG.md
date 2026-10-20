@@ -1,3 +1,10 @@
+## [1.0.46](https://github.com/VoloBro/testrail-api-client/compare/1.0.45...1.0.46) (2026-10-20)
+
+
+### Bug Fixes
+
+* use formData.getHeaders() for attachment upload Content-Type ([#47](https://github.com/VoloBro/testrail-api-client/issues/47)) ([6ccb2c7](https://github.com/VoloBro/testrail-api-client/commit/6ccb2c7a2deb3f9c7753973ed8a4407785e91f7d))
+
 ## [1.0.45](https://github.com/VoloBro/testrail-api-client/compare/1.0.44...1.0.45) (2026-07-15)
 
 
