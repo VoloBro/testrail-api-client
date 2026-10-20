@@ -29,7 +29,7 @@ jobs:
       - run: yarn build
       - run: yarn test
       - name: Release
-        uses: cycjimmy/semantic-release-action@v4
+        uses: cycjimmy/semantic-release-action@v8
         with:
           extra_plugins: |
             @semantic-release/changelog@6
